@@ -1441,6 +1441,19 @@ class EvalfMixin:
             Specifies how to replace tiny real or imaginary parts in
             subresults by exact zeros.
 
+            Subresults implies that small parts are set to zero in
+            intermediate calculations. If chop applied to final result
+            it will replace tiny real or imaginary value in final
+            result by exact zeros.
+
+            >>> from sympy import Rational, exp
+            >>> a = Rational('37751345442791/1000000000000000000000000')
+            >>> b = exp(-24)
+            >>> (a-b).evalf(n=20, chop=True)
+            0
+            >>> a.expand().evalf(n=20, chop=True) - b.expand().evalf(n=20, chop=True)
+            2.2483521874930362719e-26
+
             When ``True`` the chop value defaults to standard precision.
 
             Otherwise the chop value is used to determine the
